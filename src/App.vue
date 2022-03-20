@@ -2,13 +2,15 @@
 import Column from './components/Column.vue';
 import Navbar from './components/Navbar.vue';
 import Toolbar from './components/Toolbar.vue';
+import Footer from './components/Footer.vue';
 import { defineComponent, SetupContext } from 'vue';
 
 export default defineComponent({
   components: {
     Column,
     Navbar,
-    Toolbar
+    Toolbar,
+    Footer
   },
   props: {
   },
@@ -23,9 +25,10 @@ export default defineComponent({
     <Navbar />
     <Toolbar />
     <div class="flex px-4 pb-8 overflow-x-scroll">
-      <Column title="default" />
-      <Column title="default" />
+      <Column />
+      <Column />
     </div>
+    <Footer />
   </div>
 </template>
 

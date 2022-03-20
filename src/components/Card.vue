@@ -15,9 +15,7 @@ export default defineComponent({
 </script>
 
 <template>
-    <div
-        class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-slate-200 er"
-    >
+    <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-slate-200">
         {{ title }}
         <div class="text-grey-darker mt-2 ml-2 flex justify-between items-start">
             <span class="text-xs flex items-center">

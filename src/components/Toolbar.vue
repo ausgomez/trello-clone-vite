@@ -9,7 +9,7 @@ export default defineComponent({
 <template>
     <div class="flex m-4 justify-between">
         <div class="flex">
-            <h3 class="text-white mr-4">TailwindComponents.com</h3>
+            <h3 class="text-white mr-4">This is a board</h3>
             <ul class="list-reset text-white hidden md:flex">
                 <li>
                     <span class="font-bold text-lg px-2">☆</span>
