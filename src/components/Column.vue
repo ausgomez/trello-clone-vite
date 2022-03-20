@@ -7,8 +7,6 @@ export default defineComponent({
     components: {
         Card
     },
-    props: {
-    },
     setup(props: any, ctx: SetupContext) {
         /* VARIABLES */
         const isAddingNewCard = ref(false);

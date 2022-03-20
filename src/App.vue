@@ -10,7 +10,7 @@ export default defineComponent({
     Column,
     Navbar,
     Toolbar,
-    Footer
+    Footer,
   },
   props: {
   },
@@ -25,6 +25,7 @@ export default defineComponent({
     <Navbar />
     <Toolbar />
     <div class="flex px-4 pb-8 overflow-x-scroll">
+      <Column />
       <Column />
       <Column />
     </div>

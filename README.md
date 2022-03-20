@@ -1,3 +1,19 @@
+# Demo
+
+Try the demo --> https://trelloclone.auscode.me/
+
+# What is this?
+
+A simple Trello Kanban board made with Vue.js + Tailwincss + Vite
+
+# References
+
+The original html tailwindcss can be found [here](https://tailwindcomponents.com/component/trello-panel-clone)
+
+# Future plans
+
+I am currently building this in Vue.js with the idea of adding a backend.
+
 # Vue 3 + Typescript + Vite
 
 This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
