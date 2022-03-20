@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, ref, SetupContext } from "vue";
+import { defineComponent, reactive, ref, SetupContext } from "vue";
 import Card from './Card.vue';
 
 export default defineComponent({
@@ -8,29 +8,80 @@ export default defineComponent({
         Card
     },
     props: {
-        title: {
-            type: String,
-            default: ""
-        }
     },
     setup(props: any, ctx: SetupContext) {
+        /* VARIABLES */
         const isAddingNewCard = ref(false);
         const isEditingTitle = ref(false);
+        const title = ref('Edit me')
+
+        const cards = ref([
+            {
+                order: 0,
+                title: "Do homework",
+                description: ""
+            },
+            {
+                order: 1,
+                title: "Do Laundry",
+                description: ""
+            },
+            {
+                order: 2,
+                title: "Do Else",
+                description: ""
+            }
+        ]);
+
+        const newCardObj = reactive({
+            title: "",
+            description: ""
+        });
+
+        /* METHODS */
+        function onClickAway() {
+            console.log('clicking away')
+            isAddingNewCard.value = false;
+            isEditingTitle.value = false;
+        }
+
+        function saveNewCard() {
+            const card = { order: 3, ...newCardObj }
+            cards.value.push(card)
+            newCardObj.title = ""
+            newCardObj.description = ""
+            isAddingNewCard.value = false
+        }
 
 
         return {
+            title,
             isAddingNewCard,
-            isEditingTitle
+            isEditingTitle,
+            onClickAway,
+            cards,
+            newCardObj,
+            saveNewCard
         }
     }
 })
 </script>
 
 <template>
-    <div class="rounded bg-slate-200 flex-no-shrink w-64 p-2 mr-3" style="min-width: 16rem;">
+    <div class="rounded bg-slate-200 flex-no-shrink w-64 p-2 mr-3 h-auto" style="min-width: 16rem;">
         <div class="flex justify-between py-1">
-            <h3 class="text-sm" @click="isEditingTitle = true" v-if="!isEditingTitle">{{ title }}</h3>
-            <input v-else type="text" v-model="title" />
+            <h3
+                class="text-sm w-full font-semibold text-slate-700"
+                @click="isEditingTitle = true"
+                v-if="!isEditingTitle"
+            >{{ title }}</h3>
+            <input
+                v-else
+                type="text"
+                class="text-sm px-2 w-full"
+                v-model="title"
+                v-click-away="onClickAway"
+            />
             <svg
                 class="h-4 fill-current text-grey-dark cursor-pointer"
                 xmlns="http://www.w3.org/2000/svg"
@@ -42,17 +93,14 @@ export default defineComponent({
             </svg>
         </div>
         <div class="mb-2 space-y-2">
-            <Card title="Do homework" />
-            <Card title="Do homework" />
-            <Card title="Do homework" />
-            <Card title="Do homework" />
-            <Card title="Do homework" />
+            <Card v-for="(card, index) in cards" :key="index" :title="card.title" />
         </div>
         <div class="overflow-hidden text-sm" v-if="isAddingNewCard">
             <textarea
                 class="rounded p-2 w-full"
                 placeholder="Enter a title for this card"
                 rows="4"
+                v-model="newCardObj.title"
             />
         </div>
         <div class="text-sm mt-2">
@@ -62,10 +110,10 @@ export default defineComponent({
                 v-if="!isAddingNewCard"
             >Add a card...</p>
             <div class="flex space-x-4" v-else>
-                <p
+                <button
                     class="py-3 px-2 w-1/3 bg-blue-500 rounded text-white font-semibold"
-                    @click="isAddingNewCard = true"
-                >Add card</p>
+                    @click="saveNewCard"
+                >Add card</button>
                 <button @click="isAddingNewCard = false">X</button>
             </div>
         </div>

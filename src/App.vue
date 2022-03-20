@@ -24,14 +24,7 @@ export default defineComponent({
     <Toolbar />
     <div class="flex px-4 pb-8 overflow-x-scroll">
       <Column title="default" />
-      <Column />
-      <Column />
-      <Column />
-      <Column />
-      <Column />
-      <Column />
-      <Column />
-      <Column />
+      <Column title="default" />
     </div>
   </div>
 </template>
