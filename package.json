@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "vue": "^3.2.25",
+    "vue-dndrop": "^1.2.2",
+    "vue-router": "^4.0.14",
     "vue3-click-away": "^1.2.4"
   },
   "devDependencies": {

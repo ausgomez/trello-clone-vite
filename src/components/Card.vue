@@ -3,9 +3,8 @@ import { defineComponent, SetupContext } from "vue";
 
 export default defineComponent({
     props: {
-        title: {
-            type: String,
-            default: ""
+        card: {
+            type: Object,
         }
     },
     setup() {
@@ -16,7 +15,7 @@ export default defineComponent({
 
 <template>
     <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-slate-200">
-        {{ title }}
+        {{ card?.data }}
         <div class="text-grey-darker mt-2 ml-2 flex justify-between items-start">
             <span class="text-xs flex items-center">
                 <svg

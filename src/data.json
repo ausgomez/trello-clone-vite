@@ -1,0 +1,32 @@
+{
+    "columns": [
+        {
+            "id": "column-2",
+            "type": "container",
+            "name": "TODO",
+            "props": {
+                "orientation": "vertical"
+            },
+            "children": [
+                {
+                    "type": "draggable",
+                    "id": "21",
+                    "number": 99,
+                    "data": "one"
+                },
+                {
+                    "type": "draggable",
+                    "id": "22",
+                    "number": 99,
+                    "data": "two"
+                },
+                {
+                    "type": "draggable",
+                    "id": "23",
+                    "number": 99,
+                    "data": "three"
+                }
+            ]
+        }
+    ]
+}

@@ -1,16 +1,8 @@
 <script lang="ts">
-import Column from './components/Column.vue';
-import Navbar from './components/Navbar.vue';
-import Toolbar from './components/Toolbar.vue';
-import Footer from './components/Footer.vue';
 import { defineComponent, SetupContext } from 'vue';
 
 export default defineComponent({
   components: {
-    Column,
-    Navbar,
-    Toolbar,
-    Footer,
   },
   props: {
   },
@@ -21,16 +13,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="bg-blue-400 w-full h-screen font-sans">
-    <Navbar />
-    <Toolbar />
-    <div class="flex px-4 pb-8 overflow-x-scroll">
-      <Column />
-      <Column />
-      <Column />
-    </div>
-    <Footer />
-  </div>
+  <router-view></router-view>
 </template>
 
 <style>

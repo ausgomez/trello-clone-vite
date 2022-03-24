@@ -1,35 +1,32 @@
 <script lang="ts">
-import { defineComponent, reactive, ref, SetupContext } from "vue";
+import { computed, defineComponent, reactive, ref, SetupContext } from "vue";
 import Card from './Card.vue';
+import { Container, Draggable } from "vue-dndrop";
+import { applyDrag, log } from "../pages/utils";
+
+import { columns } from '../data.json'
+
 
 export default defineComponent({
     name: "Column",
+    props: {
+        columnObj: {
+            type: Object,
+            default: {}
+        }
+    },
     components: {
-        Card
+        Card,
+        Container,
+        Draggable
     },
     setup(props: any, ctx: SetupContext) {
         /* VARIABLES */
         const isAddingNewCard = ref(false);
         const isEditingTitle = ref(false);
-        const title = ref('Edit me')
+        const title = ref(props.columnObj.id)
 
-        const cards = ref([
-            {
-                order: 0,
-                title: "Do homework",
-                description: ""
-            },
-            {
-                order: 1,
-                title: "Do Laundry",
-                description: ""
-            },
-            {
-                order: 2,
-                title: "Do Else",
-                description: ""
-            }
-        ]);
+        const cards = ref(props.columnObj.children);
 
         const newCardObj = reactive({
             title: "",
@@ -45,12 +42,25 @@ export default defineComponent({
 
         function saveNewCard() {
             const card = { order: 3, ...newCardObj }
-            cards.value.push(card)
+            // cards.value.push(card)
             newCardObj.title = ""
             newCardObj.description = ""
             isAddingNewCard.value = false
         }
+        // https://amendx.github.io/vue-dndrop/examples/cards.html
 
+        const onCardDrop = (dropResult: any) => {
+            if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
+                const columnIndex = columns.findIndex(c => c.id == props.columnObj.id)
+                console.log(columnIndex)
+                const newColumn = columns[columnIndex]
+                newColumn.children = applyDrag(cards.value, dropResult);
+                console.log('>', newColumn)
+                columns.splice(columnIndex, 1, newColumn);
+            } else {
+                console.log('nmop[e')
+            }
+        }
 
         return {
             title,
@@ -59,7 +69,9 @@ export default defineComponent({
             onClickAway,
             cards,
             newCardObj,
-            saveNewCard
+            saveNewCard,
+            onCardDrop,
+            log
         }
     }
 })
@@ -70,7 +82,7 @@ export default defineComponent({
         <div class="flex justify-between py-1">
             <h3
                 class="text-sm w-full font-semibold text-slate-700"
-                @click="isEditingTitle = true"
+                @dblclick="isEditingTitle = true"
                 v-if="!isEditingTitle"
             >{{ title }}</h3>
             <input
@@ -90,9 +102,17 @@ export default defineComponent({
                 />
             </svg>
         </div>
-        <div class="mb-2 space-y-2">
-            <Card v-for="(card, index) in cards" :key="index" :title="card.title" />
-        </div>
+        <Container
+            class="mb-2 space-y-2"
+            group-name="col"
+            @drop="(e: any) => onCardDrop(e)"
+            @drag-start="(e: any) => log('drag start', e)"
+            @drag-end="(e: any) => log('drag end', e)"
+        >
+            <Draggable v-for="(card, index) in columnObj?.children" :key="index">
+                <Card :card="card" />
+            </Draggable>
+        </Container>
         <div class="overflow-hidden text-sm" v-if="isAddingNewCard">
             <textarea
                 class="rounded p-2 w-full"
