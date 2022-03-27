@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-blue-400 w-full h-screen font-sans">
+    <div class="bg-blue-400 w-full font-sans" style="min-height: 95vh;">
         <Navbar />
         <Toolbar />
         <router-link to="/test">test</router-link>
@@ -15,7 +15,6 @@
                 <Column class="column-drag-handle" :column-id="id" />
             </Draggable>
         </Container>
-        <Footer />
     </div>
 </template>
 
@@ -23,7 +22,6 @@
 import Column from '../components/Column.vue';
 import Navbar from '../components/Navbar.vue';
 import Toolbar from '../components/Toolbar.vue';
-import Footer from '../components/Footer.vue';
 import { defineComponent, SetupContext, ref, onBeforeMount } from 'vue';
 import { applyDrag, dragStart } from "./utils";
 import { Container, Draggable } from "vue-dndrop";
@@ -37,7 +35,6 @@ export default defineComponent({
         Column,
         Navbar,
         Toolbar,
-        Footer,
         Container,
         Draggable
     },

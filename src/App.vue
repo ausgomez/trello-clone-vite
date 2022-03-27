@@ -1,8 +1,11 @@
 <script lang="ts">
 import { defineComponent, SetupContext } from 'vue';
+import Footer from './components/Footer.vue';
+
 
 export default defineComponent({
   components: {
+    Footer
   },
   props: {
   },
@@ -18,6 +21,8 @@ export default defineComponent({
       <component :is="Component" />
     </keep-alive>
   </router-view>
+
+  <Footer />
 </template>
 
 <style>
