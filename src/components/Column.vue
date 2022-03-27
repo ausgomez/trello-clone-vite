@@ -3,9 +3,7 @@ import { computed, defineComponent, reactive, ref, SetupContext } from "vue";
 import Card from './Card.vue';
 import { Container, Draggable } from "vue-dndrop";
 import { applyDrag, log } from "../pages/utils";
-
-import { columns } from '../data.json'
-
+import { Task } from "../classes/Task";
 import { useBoardStore } from "../store";
 
 
@@ -33,8 +31,7 @@ export default defineComponent({
         const cards = computed(() => boardStore.getTasksByColumnId(props.columnId))
 
         const newCardObj = reactive({
-            title: "",
-            description: ""
+            data: "",
         });
 
         /* METHODS */
@@ -45,10 +42,9 @@ export default defineComponent({
         }
 
         function saveNewCard() {
-            const card = { order: 3, ...newCardObj }
-            // cards.value.push(card)
-            newCardObj.title = ""
-            newCardObj.description = ""
+            const task = new Task(newCardObj.data)
+            boardStore.addNewTaskToColumnById(props.columnId, task)
+            newCardObj.data = ""
             isAddingNewCard.value = false
         }
         // https://amendx.github.io/vue-dndrop/examples/cards.html
@@ -124,7 +120,7 @@ export default defineComponent({
                 class="rounded p-2 w-full"
                 placeholder="Enter a title for this card"
                 rows="4"
-                v-model="newCardObj.title"
+                v-model="newCardObj.data"
             />
         </div>
         <div class="text-sm mt-2">

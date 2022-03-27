@@ -21,7 +21,7 @@ export const useBoardStore = defineStore("board", {
             for (const col of columns) {
                 const newCol = new Column(col.id, col.name)
                 col.children.forEach(t => {
-                    const task = new Task(t.type, +t.id, t.number, t.data)
+                    const task = new Task(t.data)
                     newCol.addNewTask(task);
                 })
                 this._columns.push(newCol);
@@ -37,6 +37,15 @@ export const useBoardStore = defineStore("board", {
                 this._columns[columnIndex].children = tasks
             } else {
                 console.log('no index')
+            }
+        },
+        addNewTaskToColumnById(columnId: string, task: Task) {
+            const columnIndex = this._columns.findIndex(c => c.id == columnId);
+            task.data = task.data.trim()
+            if (columnIndex != undefined) {
+                const newTasks = [...this.columns[columnIndex].children, task]
+
+                this.updateTasksInColumnById(columnId, newTasks)
             }
         }
     },

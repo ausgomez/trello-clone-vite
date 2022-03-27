@@ -1,13 +1,10 @@
 export class Task {
-    type: string;
-    id: number;
-    number: number;
+    type: string = "draggable";
+    id: number = Math.random() * 100;
+    number: number = Math.random() * 100;
     data: string;
 
-    constructor(type: string, id: number, number: number, data: string) {
-        this.type = type;
-        this.id = id;
-        this.number = number;
+    constructor(data: string) {
         this.data = data;
     }
 }

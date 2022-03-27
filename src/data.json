@@ -9,21 +9,12 @@
             },
             "children": [
                 {
-                    "type": "draggable",
-                    "id": "11",
-                    "number": 91,
                     "data": "one"
                 },
                 {
-                    "type": "draggable",
-                    "id": "12",
-                    "number": 92,
                     "data": "two"
                 },
                 {
-                    "type": "draggable",
-                    "id": "13",
-                    "number": 93,
                     "data": "three"
                 }
             ]
@@ -37,21 +28,12 @@
             },
             "children": [
                 {
-                    "type": "draggable",
-                    "id": "21",
-                    "number": 94,
                     "data": "veni"
                 },
                 {
-                    "type": "draggable",
-                    "id": "22",
-                    "number": 95,
                     "data": "vidi"
                 },
                 {
-                    "type": "draggable",
-                    "id": "23",
-                    "number": 96,
                     "data": "vici"
                 }
             ]
