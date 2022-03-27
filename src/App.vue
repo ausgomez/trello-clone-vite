@@ -13,7 +13,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <router-view></router-view>
+  <router-view v-slot="{ Component }">
+    <keep-alive :include="['test', 'tab1', 'tab2']">
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
 </template>
 
 <style>

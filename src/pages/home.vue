@@ -2,6 +2,7 @@
     <div class="bg-blue-400 w-full h-screen font-sans">
         <Navbar />
         <Toolbar />
+        <router-link to="/test">test</router-link>
         <Container
             class="flex px-4 pb-8 overflow-x-scroll"
             @drop="onColumnDrop($event)"
@@ -10,8 +11,8 @@
             orientation="horizontal"
             :drop-placeholder="upperDropPlaceholderOptions"
         >
-            <Draggable v-for="column in columnsList" :key="column.id">
-                <Column :column-obj="column" />
+            <Draggable v-for="{ id } in columns" :key="id">
+                <Column class="column-drag-handle" :column-id="id" />
             </Draggable>
         </Container>
         <Footer />
@@ -23,10 +24,11 @@ import Column from '../components/Column.vue';
 import Navbar from '../components/Navbar.vue';
 import Toolbar from '../components/Toolbar.vue';
 import Footer from '../components/Footer.vue';
-import { defineComponent, SetupContext, ref } from 'vue';
+import { defineComponent, SetupContext, ref, onBeforeMount } from 'vue';
 import { applyDrag, dragStart } from "./utils";
 import { Container, Draggable } from "vue-dndrop";
-import { columns } from '../data.json'
+import { useBoardStore } from '../store';
+import { computed } from '@vue/reactivity';
 
 
 export default defineComponent({
@@ -43,20 +45,30 @@ export default defineComponent({
     },
     setup(props: any, ctx: SetupContext) {
 
+        const boardStore = useBoardStore()
+
+        onBeforeMount(() => {
+            boardStore.fetchColumns()
+        })
+
+
+        const columns = computed(() => boardStore.columns)
+
         const upperDropPlaceholderOptions = {
             className: "cards-drop-preview",
             animationDuration: "150",
             showOnTop: true,
         }
 
-        const columnsList = ref([...columns]);
-
         const onColumnDrop = (dropResult: any) => {
-            columnsList.value = applyDrag(columnsList.value, dropResult);
+            console.log('column dfripo')
+            // create a method that overrides all the columns on store
+            const newBoard = applyDrag(columns.value, dropResult)
+            boardStore.updateColumnsWithNewChanges(newBoard)
         }
 
         return {
-            columnsList,
+            columns,
             onColumnDrop,
             dragStart,
             upperDropPlaceholderOptions

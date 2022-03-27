@@ -6,13 +6,14 @@ import { applyDrag, log } from "../pages/utils";
 
 import { columns } from '../data.json'
 
+import { useBoardStore } from "../store";
+
 
 export default defineComponent({
     name: "Column",
     props: {
-        columnObj: {
-            type: Object,
-            default: {}
+        columnId: {
+            type: String
         }
     },
     components: {
@@ -22,11 +23,14 @@ export default defineComponent({
     },
     setup(props: any, ctx: SetupContext) {
         /* VARIABLES */
+        const boardStore = useBoardStore()
+        // const cards = boardStore.columns[0]
+        const column = computed(() => boardStore.columnById(props.columnId))
+
         const isAddingNewCard = ref(false);
         const isEditingTitle = ref(false);
-        const title = ref(props.columnObj.id)
 
-        const cards = ref(props.columnObj.children);
+        const cards = computed(() => boardStore.getTasksByColumnId(props.columnId))
 
         const newCardObj = reactive({
             title: "",
@@ -50,20 +54,18 @@ export default defineComponent({
         // https://amendx.github.io/vue-dndrop/examples/cards.html
 
         const onCardDrop = (dropResult: any) => {
+            if (column.value === null) return;
+            console.log('card drop')
             if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-                const columnIndex = columns.findIndex(c => c.id == props.columnObj.id)
-                console.log(columnIndex)
-                const newColumn = columns[columnIndex]
-                newColumn.children = applyDrag(cards.value, dropResult);
-                console.log('>', newColumn)
-                columns.splice(columnIndex, 1, newColumn);
-            } else {
-                console.log('nmop[e')
+                const newTasksList = applyDrag(cards.value, dropResult);
+                console.log(newTasksList)
+
+                boardStore.updateTasksInColumnById(column.value!.id, newTasksList)
             }
         }
 
         return {
-            title,
+            column,
             isAddingNewCard,
             isEditingTitle,
             onClickAway,
@@ -78,18 +80,22 @@ export default defineComponent({
 </script>
 
 <template>
-    <div class="rounded bg-slate-200 flex-no-shrink w-64 p-2 mr-3 h-auto" style="min-width: 16rem;">
+    <div
+        class="rounded bg-slate-200 flex-no-shrink w-64 p-2 mr-3 h-auto"
+        style="min-width: 16rem;"
+        v-if="column"
+    >
         <div class="flex justify-between py-1">
             <h3
                 class="text-sm w-full font-semibold text-slate-700"
                 @dblclick="isEditingTitle = true"
                 v-if="!isEditingTitle"
-            >{{ title }}</h3>
+            >{{ column.name }}</h3>
             <input
                 v-else
                 type="text"
                 class="text-sm px-2 w-full"
-                v-model="title"
+                v-model="column.name"
                 v-click-away="onClickAway"
             />
             <svg
@@ -109,7 +115,7 @@ export default defineComponent({
             @drag-start="(e: any) => log('drag start', e)"
             @drag-end="(e: any) => log('drag end', e)"
         >
-            <Draggable v-for="(card, index) in columnObj?.children" :key="index">
+            <Draggable v-for="(card, index) in cards" :key="index">
                 <Card :card="card" />
             </Draggable>
         </Container>
