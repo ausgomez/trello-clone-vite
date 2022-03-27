@@ -36,7 +36,6 @@ export default defineComponent({
 
         /* METHODS */
         function onClickAway() {
-            console.log('clicking away')
             isAddingNewCard.value = false;
             isEditingTitle.value = false;
         }
@@ -51,10 +50,8 @@ export default defineComponent({
 
         const onCardDrop = (dropResult: any) => {
             if (column.value === null) return;
-            console.log('card drop')
             if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
                 const newTasksList = applyDrag(cards.value, dropResult);
-                console.log(newTasksList)
 
                 boardStore.updateTasksInColumnById(column.value!.id, newTasksList)
             }

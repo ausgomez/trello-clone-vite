@@ -57,7 +57,6 @@ export default defineComponent({
         }
 
         const onColumnDrop = (dropResult: any) => {
-            console.log('column dfripo')
             // create a method that overrides all the columns on store
             const newBoard = applyDrag(columns.value, dropResult)
             boardStore.updateColumnsWithNewChanges(newBoard)
