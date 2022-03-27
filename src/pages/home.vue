@@ -2,7 +2,6 @@
     <div class="bg-blue-400 w-full font-sans" style="min-height: 95vh;">
         <Navbar />
         <Toolbar />
-        <router-link to="/test">test</router-link>
         <Container
             class="flex px-4 pb-8 overflow-x-scroll"
             @drop="onColumnDrop($event)"
