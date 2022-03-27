@@ -32,11 +32,8 @@ export const useBoardStore = defineStore("board", {
         },
         updateTasksInColumnById(columnId: string, tasks: Task[]) {
             const columnIndex = this._columns.findIndex(c => c.id == columnId);
-            console.log(">>>>>", columnIndex)
             if (columnIndex != undefined) {
                 this._columns[columnIndex].children = tasks
-            } else {
-                console.log('no index')
             }
         },
         addNewTaskToColumnById(columnId: string, task: Task) {
