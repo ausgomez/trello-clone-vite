@@ -18,13 +18,19 @@ export const useBoardStore = defineStore("board", {
     },
     actions: {
         fetchColumns() {
-            for (const col of columns) {
-                const newCol = new Column(col.id, col.name)
-                col.children.forEach(t => {
-                    const task = new Task(t.data)
-                    newCol.addNewTask(task);
-                })
-                this._columns.push(newCol);
+            const columnLimit = Math.floor(Math.random() * 15) + 1;
+
+            console.log(columnLimit)
+
+            for (let i = 1; i <= columnLimit; i++) {
+                const column = new Column(`column-${i}`, `TODO #${i}`)
+                const tasksLimit = Math.floor(Math.random() * 5) + 1;
+                for (let j = 0; j < tasksLimit; j++) {
+                    const task = new Task()
+                    column.addNewTask(task);
+                }
+
+                this._columns.push(column)
             }
         },
         updateColumnsWithNewChanges(columns: Column[]) {

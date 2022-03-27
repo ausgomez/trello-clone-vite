@@ -16,6 +16,9 @@
                 },
                 {
                     "data": "three"
+                },
+                {
+                    "data": "four"
                 }
             ]
         },
@@ -35,6 +38,63 @@
                 },
                 {
                     "data": "vici"
+                }
+            ]
+        },
+        {
+            "id": "column-3",
+            "type": "container",
+            "name": "TODO",
+            "props": {
+                "orientation": "vertical"
+            },
+            "children": [
+                {
+                    "data": "one"
+                },
+                {
+                    "data": "two"
+                },
+                {
+                    "data": "three"
+                }
+            ]
+        },
+        {
+            "id": "column-4",
+            "type": "container",
+            "name": "TODO",
+            "props": {
+                "orientation": "vertical"
+            },
+            "children": [
+                {
+                    "data": "one"
+                },
+                {
+                    "data": "two"
+                },
+                {
+                    "data": "three"
+                }
+            ]
+        },
+        {
+            "id": "column-5",
+            "type": "container",
+            "name": "TODO",
+            "props": {
+                "orientation": "vertical"
+            },
+            "children": [
+                {
+                    "data": "one"
+                },
+                {
+                    "data": "two"
+                },
+                {
+                    "data": "three"
                 }
             ]
         }

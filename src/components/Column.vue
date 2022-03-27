@@ -41,7 +41,8 @@ export default defineComponent({
         }
 
         function saveNewCard() {
-            const task = new Task(newCardObj.data)
+            const task = new Task()
+            task.data = newCardObj.data
             boardStore.addNewTaskToColumnById(props.columnId, task)
             newCardObj.data = ""
             isAddingNewCard.value = false

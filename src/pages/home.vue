@@ -1,9 +1,9 @@
 <template>
-    <div class="bg-blue-400 w-full font-sans" style="min-height: 95vh;">
+    <div class="bg-blue-400 font-sans overflow-hidden" style="min-height: 95vh;">
         <Navbar />
         <Toolbar />
         <Container
-            class="flex px-4 pb-8 overflow-x-scroll"
+            class="max-w-screen flex flex-row px-4 pb-8 overflow-x-scroll"
             @drop="onColumnDrop($event)"
             @drag-start="dragStart"
             drag-handle-selector=".column-drag-handle"
